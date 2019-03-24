@@ -2,7 +2,7 @@ FROM arm32v7/alpine:3.9
 
 ENV FRP_VER 0.25.1
 ENV FRP_TOKEN ""
-ENV PLATFORM "linux_arm"
+ENV PLATFORM "linux_amd64"
 
 ADD https://github.com/fatedier/frp/releases/download/v${FRP_VER}/frp_${FRP_VER}_${PLATFORM}.tar.gz /usr/local/
 
