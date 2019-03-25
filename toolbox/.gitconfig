@@ -1,0 +1,18 @@
+[core]
+    autocrlf = false
+    eol = lf
+    quotepath = false
+
+[user]
+    user = major1201
+    email = major1201@gmail.com
+    name = major1201
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = true
+
+[credential]
+    helper = store
