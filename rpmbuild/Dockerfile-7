@@ -1,0 +1,13 @@
+FROM centos:7
+
+COPY .rpmmacros-7 /root/.rpmmacros
+COPY entrypoint.sh /
+
+RUN yum install -y yum-utils rpmdevtools \
+    && rpmdev-setuptree \
+    && yum clean all && rm -rf /var/cache/yum/* \
+    && chmod +x /entrypoint.sh
+
+VOLUME /root/rpmbuild/SPECS /root/rpmbuild/SOURCES /root/rpmbuild/RPMS /root/rpmbuild/SRPMS
+
+ENTRYPOINT [ "/entrypoint.sh" ]
