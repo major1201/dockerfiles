@@ -1,7 +1,7 @@
+FROM alpine:3.9
+
 ARG FRP_VER=0.25.1
 ARG PLATFORM="linux_amd64"
-
-FROM alpine:3.9
 
 ENV FRP_TOKEN ""
 
