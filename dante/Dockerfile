@@ -7,11 +7,9 @@ ENV DANTE_USERNAME="" DANTE_PASSWORD=""
 
 RUN set -x \
     && chmod +x /entrypoint.sh \
-    && sed -i s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g /etc/apk/repositories \
     && apk add --no-cache linux-pam \
     && apk add --no-cache -t .build-deps build-base curl linux-pam-dev \
-    # && cd /tmp && curl -L https://www.inet.no/dante/files/dante-1.4.2.tar.gz | tar xz \
-    && cd /tmp && curl -L http://47.99.70.126/dante-1.4.2.tar.gz | tar xz \
+    && cd /tmp && curl -L https://www.inet.no/dante/files/dante-1.4.2.tar.gz | tar xz \
     && cd dante-* \
     && ac_cv_func_sched_setscheduler=no ./configure \
     && make install \
