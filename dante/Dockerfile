@@ -1,0 +1,27 @@
+FROM alpine:3.9
+
+COPY entrypoint.sh /entrypoint.sh
+COPY sockd.conf /etc/sockd/sockd.conf
+
+ENV DANTE_USERNAME="" DANTE_PASSWORD=""
+
+RUN set -x \
+    && chmod +x /entrypoint.sh \
+    && sed -i s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g /etc/apk/repositories \
+    && apk add --no-cache linux-pam \
+    && apk add --no-cache -t .build-deps build-base curl linux-pam-dev \
+    # && cd /tmp && curl -L https://www.inet.no/dante/files/dante-1.4.2.tar.gz | tar xz \
+    && cd /tmp && curl -L http://47.99.70.126/dante-1.4.2.tar.gz | tar xz \
+    && cd dante-* \
+    && ac_cv_func_sched_setscheduler=no ./configure \
+    && make install \
+    && cd / \
+    # Add an unprivileged user.
+    && adduser -S -D -u 8062 -H sockd \
+    # clean up
+    && rm -rf /tmp/* \
+    && apk del --purge .build-deps
+
+EXPOSE 1080
+VOLUME [ "/etc/sockd" ]
+ENTRYPOINT ["/entrypoint.sh"]
