@@ -8,7 +8,7 @@ FRP_TOKEN|
 
 ```bash
 docker run -d \
-    --name frps
+    --name frps \
     -p 7000:7000 \
     -p 6001-6010:6001-6010 \
     -e FRP_TOKEN=password \

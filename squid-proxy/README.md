@@ -13,7 +13,7 @@ SQUID_PROXY_PASSWORD|admin
 
 ```bash
 docker run -d \
-    --name squid-proxy
+    --name squid-proxy \
     -p 3128:3128 \
     -e SQUID_PROXY_PASSWORD=mypassword \
     major1201/squid-proxy
