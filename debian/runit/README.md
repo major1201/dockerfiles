@@ -5,6 +5,7 @@
 ## Images
 
 - major1201/debian:buster-runit
+- major1201/debian:bullseye-runit
 
 ## Example
 

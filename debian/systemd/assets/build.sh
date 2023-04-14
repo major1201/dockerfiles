@@ -9,7 +9,7 @@ fi
 
 apt update
 apt install gnupg2 -y
-apt install vim localepurge python curl lsof wget less telnet -y --yes
+DEBIAN_FRONTEND=noninteractive apt install vim localepurge python curl lsof wget less telnet -y --yes
 
 sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 sed -i -e 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/' /etc/locale.gen

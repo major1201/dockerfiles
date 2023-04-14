@@ -6,6 +6,7 @@
 
 - major1201/debian:stretch-systemd
 - major1201/debian:buster-systemd
+- major1201/debian:bullseye-systemd
 
 ## Example
 
