@@ -3,13 +3,25 @@ set -e
 
 # 1. base
 if [[ "${REGION}" = "cn" ]]; then
-    sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
-    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
+    read -r debian_version < /etc/debian_version
+    # shellcheck disable=SC2071
+    if [[ "${debian_version}" > "12" ]]; then
+        sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
+    else
+        sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+        sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
+    fi
 fi
 
 apt update
 apt install gnupg2 -y
-DEBIAN_FRONTEND=noninteractive apt install vim localepurge python curl lsof wget less telnet -y --yes
+# shellcheck disable=SC2071
+if [[ "${debian_version}" > "12" ]]; then
+    apt install python3 -y --yes
+else
+    apt install python -y --yes
+fi
+DEBIAN_FRONTEND=noninteractive apt install vim localepurge curl lsof wget less telnet -y --yes
 
 sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 sed -i -e 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/' /etc/locale.gen
